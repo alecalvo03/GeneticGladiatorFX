@@ -7,6 +7,25 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="javax.ws.rs-api-2.0.1" level="project" />
+    <orderEntry type="library" name="dom4j-1.6.1" level="project" />
+    <orderEntry type="library" name="jersey-media-json-jackson-2.23.2" level="project" />
+    <orderEntry type="library" name="jersey-media-jaxb" level="project" />
+    <orderEntry type="library" name="jersey-client" level="project" />
+    <orderEntry type="library" name="jersey-common-2.23.2" level="project" />
+    <orderEntry type="library" name="hk2-utils-2.5.0-b05" level="project" />
+    <orderEntry type="library" name="hk2-api-2.5.0-b05" level="project" />
+    <orderEntry type="library" name="jersey-guava-2.23.2" level="project" />
+    <orderEntry type="library" name="javax.inject-2.5.0-b05" level="project" />
+    <orderEntry type="library" name="hk2-locator-2.5.0-b05" level="project" />
+    <orderEntry type="library" name="javax.annotation-api-1.2" level="project" />
+    <orderEntry type="library" name="jackson-jaxrs-json-provider-2.8.4" level="project" />
+    <orderEntry type="library" name="jackson-jaxrs-base-2.8.4" level="project" />
+    <orderEntry type="library" name="jackson-core-2.7.7" level="project" />
+    <orderEntry type="library" name="jersey-entity-filtering-2.23.2" level="project" />
+    <orderEntry type="library" name="jackson-databind-2.7.7" level="project" />
+    <orderEntry type="library" name="jackson-datatype-joda-2.8.3" level="project" />
+    <orderEntry type="library" name="jackson-module-jaxb-annotations-2.8.4" level="project" />
+    <orderEntry type="library" name="jackson-annotations-2.8.4" level="project" />
   </component>
 </module>
-

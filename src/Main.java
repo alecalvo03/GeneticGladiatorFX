@@ -1,8 +1,10 @@
+import characters.Gladiator;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import logic.server.com.GetFromServer;
 
 import java.io.IOException;
 
@@ -15,6 +17,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Main.primaryStage = primaryStage;
         Main.primaryStage.setTitle("Genetic Gladiator");
+        Gladiator[] gladiators = GetFromServer.getGladiaor(0);
+        System.out.println(gladiators[1]);
         showMainPane();
         showPopulationView();
     }
