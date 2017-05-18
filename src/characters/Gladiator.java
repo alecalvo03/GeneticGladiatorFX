@@ -1,6 +1,5 @@
 package characters;
 
-import algorithms.Randomizer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Gladiator implements Comparable<Gladiator>{
@@ -26,15 +25,6 @@ public class Gladiator implements Comparable<Gladiator>{
 	private float beauty;
 	private float intelligence;
 
-	public Gladiator(String name,String kind,String gender) {
-		this.name = name;		
-		this.gender = gender;
-		this.kind = kind;
-		this.setDamageResistance();
-		this.setDerivatedAttributes();
-		this.setMiscelaneousAttributes();
-	}
-
 	public Gladiator(@JsonProperty("name") String name, @JsonProperty("kind")String kind, @JsonProperty("gender")String gender,
 					 @JsonProperty("handStrikeDamage") float handStrikeDamage, @JsonProperty("footStrikeDamage") float footStrikeDamage,
 					 @JsonProperty("handStrikeResistance") float handStrikeResistance, @JsonProperty("footStrikeResistance") float footStrikeResistance,
@@ -59,89 +49,7 @@ public class Gladiator implements Comparable<Gladiator>{
 		this.beauty = beauty;
 		this.intelligence = intelligence;
 	}
-	
-	public Gladiator(String gender, String name, Gladiator[] parents){
-		
-		this.name = name;
-		this.handStrikeDamage = parents[Randomizer.getPosInt(parents.length)].getHandStrikeDamage();
-		this.footStrikeDamage = parents[Randomizer.getPosInt(parents.length)].getFootStrikeDamage();
-		this.handStrikeResistance = parents[Randomizer.getPosInt(parents.length)].getHandStrikeResistance();
-		this.footStrikeResistance = parents[Randomizer.getPosInt(parents.length)].getFootStrikeResistance();
-		this.arrowResistance = parents[Randomizer.getPosInt(parents.length)].getArrowResistance();
-		this.setTotalResistance();	
-		
-		this.kind = parents[0].getKind();
-		this.gender = gender;
-		
-		this.setDerivatedAttributes();
-		this.setMiscelaneousAttributes();
-		
-	}
-	
-	private void setDamageResistance(){
-		int mult = 10;
-		if(Randomizer.getPosInt(100) < 25){
-			mult = Randomizer.getPostInt(50, 3, 100, true);
-		}
-		this.handStrikeDamage = Randomizer.getFloat()*mult/10;
-		this.handStrikeResistance = Randomizer.getFloat()*mult;
-		mult = 10;
-		if(Randomizer.getPosInt(100) < 25){
-			mult = Randomizer.getPostInt(50, 3, 100, true);
-		}
-		this.footStrikeDamage = Randomizer.getFloat()*mult/10 + 10 ;
-		this.footStrikeResistance = Randomizer.getFloat()*mult;
-		mult = 10;
-		if(Randomizer.getPosInt(100) < 25){
-			mult = Randomizer.getPostInt(50, 3, 100, true);
-		}
-		this.arrowResistance = Randomizer.getFloat()*mult;
-		this.setTotalResistance();
-	}
-	private void setTotalResistance(){
-		float a = handStrikeResistance;
-		float b = footStrikeResistance;
-		float c = arrowResistance;
-		float d = 100 *(a+b+c) - (a*a + b*b + c*c);
-		float e = a+b+c;
-		if(e == 300){
-			this.totalResistance = 100;
-		}
-		else{
-			this.totalResistance =  d/(300 - e);
-		}
-	}
-	private void setDerivatedAttributes(){
-		this.stamina = (handStrikeResistance + footStrikeResistance)/2;
-		this.maxSpeed = 6 * ((footStrikeDamage-10)*10 + 2 * footStrikeResistance + stamina)/4;
-	}
-	private void setMiscelaneousAttributes(){
-		this.beauty = Randomizer.getFloat()*10;
-		this.sexualAttraction = Randomizer.getFloat()*10;
-		this.intelligence = Randomizer.getFloat()*10;
-	}
-	
-	public void fit(){
-		float a = handStrikeDamage* 10;
-		float b = (footStrikeDamage - 10) *10;
-		float d = 100 *(a+b) - (a*a + b*b );
-		float e = a+b;
-		float total;
-		if(e == 200){
-			total = 100;
-		}else{
-			total =  d/(200 - e);
-		}
-		float timed = 0;
-		if(time > 3000){
-			timed = 100;
-		}
-		else{
-			timed = time/300;
-		}
-		this.score = (this.totalResistance + total + timed)/3; // aqui balimos berga
-	}
-	
+
 	@Override
 	public int compareTo(Gladiator otherGladiator) {
 		if(this.score > otherGladiator.score){
@@ -153,7 +61,7 @@ public class Gladiator implements Comparable<Gladiator>{
 		else{
 			return 0;
 		}
-		
+
 	}
 	public String toString(){
 		return String.format("Name: %s\n"
@@ -176,28 +84,6 @@ public class Gladiator implements Comparable<Gladiator>{
 				this.totalResistance, kind, stamina, maxSpeed, 
 				score, sexualAttraction, beauty, intelligence);
 	}
-
-	public void mutate(){
-		switch(Randomizer.getPosInt(5)){
-			case 1:{
-				this.handStrikeDamage = Randomizer.getFloat(50, 100);
-			}
-			case 2:{
-				this.footStrikeDamage = Randomizer.getFloat(50, 100);
-			}
-			case 3:{
-				this.handStrikeResistance = Randomizer.getFloat(50, 100);
-			}
-			case 4:{
-				this.footStrikeResistance = Randomizer.getFloat(50, 100);
-			}
-			case 5:{
-				this.arrowResistance = Randomizer.getFloat(50, 100);
-			}
-		}
-		this.setTotalResistance();
-	}	
-
 	
 	public String getName() {
 		return name;

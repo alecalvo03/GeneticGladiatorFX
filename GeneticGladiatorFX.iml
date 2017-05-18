@@ -27,5 +27,6 @@
     <orderEntry type="library" name="jackson-datatype-joda-2.8.3" level="project" />
     <orderEntry type="library" name="jackson-module-jaxb-annotations-2.8.4" level="project" />
     <orderEntry type="library" name="jackson-annotations-2.8.4" level="project" />
+    <orderEntry type="library" name="json-20160810" level="project" />
   </component>
 </module>
