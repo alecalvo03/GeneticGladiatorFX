@@ -3,6 +3,8 @@ package characters;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 /**
  * Created by Usuario on 16/05/2017.
  */
@@ -10,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class PopulationInfo {
     private int size;
     private String kind;
-    private Generations[] generations;
+    private List<Generations> generations;
 
     public PopulationInfo(@JsonProperty("size")int size, @JsonProperty("kind")String kind){
         this.size = size;
@@ -25,11 +27,11 @@ public class PopulationInfo {
         return kind;
     }
 
-    public Generations[] getGenerations() {
+    public List<Generations> getGenerations() {
         return generations;
     }
 
-    public void setGenerations(Generations[] generations) {
+    public void setGenerations(List<Generations> generations) {
         this.generations = generations;
     }
 }

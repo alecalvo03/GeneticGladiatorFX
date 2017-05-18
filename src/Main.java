@@ -1,10 +1,9 @@
-import characters.PopulationInfo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import logic.server.com.GetFromServer;
+import population.PopulationController;
 
 import java.io.IOException;
 
@@ -12,17 +11,18 @@ public class Main extends Application {
 
     private static Stage primaryStage;
     private static BorderPane mainLayout;
+    private PopulationController controller;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         Main.primaryStage = primaryStage;
         Main.primaryStage.setTitle("Genetic Gladiator");
-        //Gladiator[] gladiators = GetFromServer.getGladiators(0);
-        //System.out.println(gladiators[1]);
-        PopulationInfo populationInfo = GetFromServer.getPopulationInfo(0);
-        System.out.println(populationInfo.getGenerations()[1].getMutations());
+        Main.primaryStage.setOnCloseRequest(event -> {
+            controller.running = false;
+            System.exit(0);
+        });
         showMainPane();
-        showPopulationView();
+        showPopulationView(0);
     }
 
     public void showMainPane() throws IOException {
@@ -32,8 +32,11 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public void showPopulationView() throws IOException {
-        BorderPane population = FXMLLoader.load(getClass().getResource("population/PopulationView.fxml"));
+    public void showPopulationView(int id) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("population/PopulationView.fxml"));
+        BorderPane population = fxmlLoader.load();
+        controller = fxmlLoader.getController();
+        controller.id = id;
         mainLayout.setCenter(population);
     }
 
