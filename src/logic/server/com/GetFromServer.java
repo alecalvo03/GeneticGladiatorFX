@@ -5,6 +5,7 @@ import characters.Gladiator;
 import characters.PopulationInfo;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.MainFX;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
 import javax.ws.rs.client.AsyncInvoker;
@@ -20,8 +21,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public class GetFromServer {
-    private static String IP = "localhost";
-    private static String Puerto = "9080";
+    private static String IP = MainFX.ip;
+    private static String Puerto = MainFX.puerto;
 
     public static Gladiator[] getGladiators(int population){
         Client client = ClientBuilder.newBuilder().register(JacksonFeature.class).build();
