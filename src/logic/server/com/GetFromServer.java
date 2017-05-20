@@ -26,7 +26,7 @@ public class GetFromServer {
 
     public static Gladiator[] getGladiators(int population){
         Client client = ClientBuilder.newBuilder().register(JacksonFeature.class).build();
-        WebTarget target = client.target("http://"+ IP +":"+Puerto+"/GG/gg/gladiator/population/"+population);
+        WebTarget target = client.target("http://"+ IP +":"+Puerto+"/GG/gg/gladiator/population/"+population+"/0");
         Response response = target.request().get();
         return response.readEntity(Gladiator[].class);
     }
@@ -38,23 +38,35 @@ public class GetFromServer {
         String strResponse = response.readEntity(String.class);
         ObjectMapper mapper = MapperSingleton.getMapper();
         JsonNode node = mapper.readTree(strResponse);
-        JsonNode generations = node.get("generations").get("generation");
+        JsonNode generations = node.get("generations");
         PopulationInfo popu = mapper.treeToValue(node,PopulationInfo.class);
-        List<Generations> genarray = new ArrayList<>(Arrays.asList(mapper.treeToValue(generations,Generations[].class)));
-        popu.setGenerations(genarray);
+        if (generations.toString().length() == 2){
+            popu.setGenerations(new ArrayList<>());
+        } else {
+            generations = generations.get("generation");
+            List<Generations> genarray;
+            if (generations.isArray()) {
+                genarray = new ArrayList<>(Arrays.asList(mapper.treeToValue(generations, Generations[].class)));
+            } else {
+                genarray = new ArrayList<>(Arrays.asList(mapper.treeToValue(generations, Generations.class)));
+            }
+            popu.setGenerations(genarray);
+        }
         return popu;
     }
 
-    public static Generations getGenerations() throws ExecutionException, InterruptedException, IOException {
+    public static Generations getGenerations(int i) throws ExecutionException, InterruptedException, IOException {
         Client client = ClientBuilder.newBuilder().register(JacksonFeature.class).build();
-        WebTarget target = client.target("http://"+ IP +":"+Puerto+"/GG/gg/sync/join");
+        WebTarget target = client.target("http://"+ IP +":"+Puerto+"/GG/gg/sync/join/"+i);
         final AsyncInvoker asyncInvoker = target.request().async();
         final Future<Response> responseFuture = asyncInvoker.get();
         final Response response = responseFuture.get();
         String strResponse = response.readEntity(String.class);
         JsonNode node = MapperSingleton.getMapper().readTree(strResponse);
         node = node.get("generation");
-        return MapperSingleton.getMapper().treeToValue(node,Generations.class);
+        Generations generations = MapperSingleton.getMapper().treeToValue(node,Generations.class);
+        System.out.println(generations.getAverage());
+        return generations;
     }
 
 }

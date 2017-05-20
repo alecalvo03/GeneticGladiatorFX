@@ -1,12 +1,15 @@
 package javafx.info;
 
 import characters.Gladiator;
+import javafx.MainFX;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.util.Callback;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -17,6 +20,12 @@ public class InfoPaneController implements Initializable{
 
     @FXML private ListView<Gladiator> lvRomans;
     @FXML private ListView<Gladiator> lvGreeks;
+    @FXML private TableView<Gladiator> tbvStats;
+    @FXML private TableColumn<Gladiator,String> tbcSkillName;
+    @FXML private TableColumn<Gladiator,Float> tbcValue;
+    @FXML private Button btnRoman;
+    @FXML private Button btnGreek;
+    @FXML private Label lbName;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -39,5 +48,30 @@ public class InfoPaneController implements Initializable{
         });
         lvGreeks.setItems(GladiatorLists.getGreekList());
         lvGreeks.setCellFactory(lvRomans.getCellFactory());
+
+        FilteredList<Gladiator> skillNameList = new FilteredList<>(GladiatorLists.getRomanList());
+        SortedList<Gladiator> sortedSkill = new SortedList<>(skillNameList);
+        sortedSkill.comparatorProperty().bind(tbvStats.comparatorProperty());
+        tbvStats.setItems(sortedSkill);
+    }
+
+    public void openRomanChart() throws IOException {
+        MainFX.showRomanChart();
+    }
+
+    public void openGreekChart() throws IOException {
+        MainFX.showGreekChart();
+    }
+
+    public void selectedRoman(){
+        updateStats(lvRomans.getSelectionModel().getSelectedItem());
+    }
+
+    public void selectedGreek(){
+        updateStats(lvGreeks.getSelectionModel().getSelectedItem());
+    }
+
+    public void updateStats(Gladiator gladiator){
+
     }
 }
