@@ -5,14 +5,16 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -28,16 +30,16 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <ListView fx:id="lvRomans" layoutX="9.600000381469727" layoutY="9.600000381469727" prefHeight="355.0" prefWidth="600.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0" />
+                                    <ListView fx:id="lvRomans" layoutX="9.600000381469727" layoutY="9.600000381469727" onMouseClicked="#selectedRoman" prefHeight="355.0" prefWidth="600.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0" />
                                  </children>
                               </AnchorPane>
                         </content>
                       </TitledPane>
-                      <TitledPane animated="false" text="Greek">
+                      <TitledPane animated="false" onMouseClicked="#selectedGreek" text="Greek">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <ListView fx:id="lvGreeks" prefHeight="350.0" prefWidth="600.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0" />
+                                    <ListView fx:id="lvGreeks" layoutX="14.0" layoutY="-1.0" prefHeight="350.0" prefWidth="600.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0" />
                                  </children>
                               </AnchorPane>
                         </content>
@@ -59,15 +61,65 @@
                            </VBox.margin>
                         </Label>
                         <Separator prefWidth="200.0" />
-                        <TableView fx:id="tbvStats" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                          <columns>
-                            <TableColumn fx:id="tbcSkillName" prefWidth="75.0" text="Skill Name" />
-                            <TableColumn fx:id="tbcValue" prefWidth="75.0" text="Value" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
+                        <ScrollPane VBox.vgrow="ALWAYS">
+                           <content>
+                              <GridPane prefHeight="425.0" prefWidth="259.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="15.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Kind:" />
+                                    <Label text="Gender:" GridPane.rowIndex="1" />
+                                    <Label text="Hand Strike Damage:" GridPane.rowIndex="2" />
+                                    <Label text="Foot Strike Damage:" GridPane.rowIndex="3" />
+                                    <Label text="Hand Strike Resistance:" GridPane.rowIndex="4" />
+                                    <Label text="Foot Strike Resistance:" GridPane.rowIndex="5" />
+                                    <Label text="Arrow Resistance:" GridPane.rowIndex="6" />
+                                    <Label text="Total Resistance:" GridPane.rowIndex="7" />
+                                    <Label text="Stamina:" GridPane.rowIndex="8" />
+                                    <Label text="Maximum Speed:" GridPane.rowIndex="9" />
+                                    <Label text="Time:" GridPane.rowIndex="10" />
+                                    <Label text="Score:" GridPane.rowIndex="11" />
+                                    <Label text="Sexual Attraction:" GridPane.rowIndex="12" />
+                                    <Label text="Beauty:" GridPane.rowIndex="13" />
+                                    <Label text="Intelligence:" GridPane.rowIndex="14" />
+                                    <Label fx:id="lbKind" GridPane.columnIndex="1" />
+                                    <Label fx:id="lbGender" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label fx:id="lbHStrikeDmg" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbFStrikeDmg" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Label fx:id="lbHStrikeRes" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Label fx:id="lbFStrikeRes" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Label fx:id="lbArrowRes" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <Label fx:id="lbTotalRes" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <Label fx:id="lbStamina" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                    <Label fx:id="lbMaxSpeed" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                    <Label fx:id="lbTime" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                    <Label fx:id="lbScore" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                                    <Label fx:id="lbSexAttract" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                                    <Label fx:id="lbBeauty" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                                    <Label fx:id="lbIntelligence" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                                 </children>
+                              </GridPane>
+                           </content>
+                        </ScrollPane>
                      </children>
                   </VBox>
                </children>
